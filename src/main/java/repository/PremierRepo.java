@@ -22,7 +22,7 @@ public class PremierRepo {
         System.out.println("Input amount of seat:");
         newPremier.setPlace(scanner.nextInt());
         staging.add(newPremier);
-        System.out.println(newPremier.getName() + "added successfully");
+        System.out.println(newPremier.getName() + " added successfully");
     }
 
     public ArrayList<Premier> removePremier(){
