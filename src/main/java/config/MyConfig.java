@@ -2,19 +2,19 @@ package config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import repository.PremierRepo;
+import service.PremierService;
 import service.TicketService;
 
 @Configuration
 public class MyConfig {
 
     @Bean
-    public PremierRepo PremierRepo(){
-        return new PremierRepo();
+    public PremierService PremierRepo(){
+        return new PremierService();
     }
 
     @Bean
-    public TicketService TicketService(PremierRepo repository){
+    public TicketService TicketService(PremierService repository){
         return new TicketService(repository);
     }
 }

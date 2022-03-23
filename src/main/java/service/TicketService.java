@@ -3,17 +3,16 @@ package service;
 import entity.Premier;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import repository.PremierRepo;
 
 import java.util.Scanner;
 
 @Service
 public class TicketService {
     private String success;
-    private PremierRepo repository;
+    private PremierService repository;
 
     @Autowired
-    public TicketService(PremierRepo repository){
+    public TicketService(PremierService repository){
         this.repository = repository;
     }
 
