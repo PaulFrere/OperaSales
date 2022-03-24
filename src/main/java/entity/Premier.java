@@ -9,12 +9,14 @@ public class Premier extends ArrayList<Premier> {
     private String annotation;
     private Integer ageCategory;
     private Integer place;
+    private Integer tickets;
 
-    public Premier() {
+    public Premier(String name, String annotation, int ageCategory, int place, int tickets) {
         this.name = name;
         this.annotation = annotation;
         this.ageCategory = ageCategory;
         this.place = place;
+        this.tickets = tickets;
     }
 
     public String getName() {
@@ -49,6 +51,12 @@ public class Premier extends ArrayList<Premier> {
         this.place = place;
     }
 
+    public  Integer getTickets() { return tickets; }
+
+    public void setTickets(Integer tickets) {
+        this.tickets = tickets;
+    }
+
     @Override
     public String toString() {
         return name +
@@ -61,4 +69,5 @@ public class Premier extends ArrayList<Premier> {
     public Stream<Premier> stream() {
         return super.stream();
     }
+
 }
