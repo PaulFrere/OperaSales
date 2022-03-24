@@ -1,5 +1,5 @@
 package service;
 
 public interface Logger {
-    void log(Object o);
+    void print(Object object);
 }
