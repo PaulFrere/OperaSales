@@ -1,5 +1,6 @@
 package service;
 
+import dto.Ticket;
 import entity.TicketEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import repository.TicketRepo;
 
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,11 +28,24 @@ public class TicketService implements ApplicationContextAware {
     }
 
     public void returnTicket(Integer id){
-        repository.deleteAllById(Collections.singleton(id));
+        repository.deleteById(id);
+    }
+
+
+    private List<Ticket> toDomain(List<TicketEntity> entities){
+        return entities.stream()
+                .map(TicketService::toDomain).collect(Collectors.toList());
+    }
+
+    private static Ticket toDomain(TicketEntity ticket){
+        return new Ticket(ticket.getId(), ticket.getPrice(), ticket.getEvent().getName());
     }
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
         this.ctx = applicationContext;
     }
 
+    public List<Ticket> getETickets(Integer id){
+        return toDomain(repository.getTicketEntitiesByEvent_Id(id));
+    }
 }

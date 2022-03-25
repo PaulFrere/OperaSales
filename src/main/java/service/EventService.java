@@ -1,5 +1,10 @@
 package service;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import net.bytebuddy.implementation.bytecode.Throw;
+import dto.Event;
 import entity.EventEntity;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +24,9 @@ import javax.persistence.LockModeType;
 import java.io.EOFException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -36,23 +43,16 @@ public class EventService implements ApplicationContextAware {
         this.repository = repository;
         this.txTemplate = txTemplate;
     }
-    public void addEvent(EventEntity e) {
-        txTemplate.executeWithoutResult((status)->{
-          try {
-              repository.save(e);
-          }catch(Exception err){
-              System.err.println(err);
-              status.setRollbackOnly();
-          }
-        });
-        repository.save(e);
+    public Integer addEvent(EventEntity e) {
+        EventEntity es =repository.save(e);
+        return es.getId();
     }
 
     @Lock(value = LockModeType.PESSIMISTIC_WRITE)
-    public EventEntity getEventById(Integer id)
+    public Event getEventById(Integer id)
     {
         try {
-            return repository.getById(id);
+            return toDomain(repository.getById(id));
         }catch (Exception err){
             System.err.println(err.getMessage());
         }
@@ -75,8 +75,16 @@ public class EventService implements ApplicationContextAware {
     public void deleteEvent(Integer id){
         repository.deleteById(id);
     }
-    public List<EventEntity> getList(){
-        return repository.findAll();
+    public List<Event> getList(){
+        return toDomain(repository.findAllOrderById());
+    }
+    private List<Event> toDomain(List<EventEntity> entities){
+        return entities.stream()
+                .map(EventService::toDomain).collect(Collectors.toList());
+    }
+
+    private static Event toDomain(EventEntity entity){
+        return new Event(entity.getId(), entity.getName(), new ArrayList<>());
     }
 
     @PostConstruct

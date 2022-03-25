@@ -21,8 +21,10 @@ public class EventEntity {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_seq")
+    @SequenceGenerator(name = "events_seq", sequenceName = "events_seq")
     private Integer id;
+
 
     public void setId(Integer id){
         this.id = id;
@@ -30,6 +32,7 @@ public class EventEntity {
     public Integer getId(){
         return id;
     }
+    public String getName(){return name;}
 
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
     private Collection<TicketEntity> tickets;
