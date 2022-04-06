@@ -6,7 +6,7 @@ public class Ticket {
     private Integer price;
     private String nameOfOpera;
 
-    public Ticket(){
+    public Ticket(String name, int place){
         this.number = number;
         this.price = price;
         this.nameOfOpera = nameOfOpera;

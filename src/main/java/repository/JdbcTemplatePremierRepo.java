@@ -57,6 +57,7 @@ public class JdbcTemplatePremierRepo implements PremierRepo {
         );
         return updateRows == 1;
     }
+
     private static Premier parse(SqlRowSet result){
         final String name = result.getString("name");
         final String annotation = result.getString("annotation");

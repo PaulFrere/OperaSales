@@ -26,8 +26,8 @@ public class PremierServiceImpl implements PremierService {
     }
 
     @Override
-    public void editPremier(String name, Premier premier){
-
+    public void editPremier(String name, String annotation, int ageCategory, int place, int tickets){
+        logger.log(premierRepo.get(name));
     }
     @Override
     public void showPremier(String name){
@@ -42,7 +42,7 @@ public class PremierServiceImpl implements PremierService {
         }
     }
     @Override
-    public void deletePremier(){
-
+    public void deletePremier(String name){
+        logger.log(premierRepo.get(name));
     }
 }
