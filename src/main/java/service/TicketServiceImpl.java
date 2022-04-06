@@ -1,7 +1,6 @@
 package service;
 
 import entity.Ticket;
-import org.springframework.beans.factory.annotation.Autowired;
 import repository.TicketRepo;
 
 public class TicketServiceImpl implements TicketService{
