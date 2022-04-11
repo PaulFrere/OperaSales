@@ -42,10 +42,16 @@ public class EventController {
         return mapper.toDto(event);
     }
 
-    @PutMapping
+    @PostMapping
     public Integer create(@RequestBody EventDto eventDto){
         Event event = mapper.toDomain(eventDto);
         return eventService.addEvent(mapper.toEntity(event));
+    }
+
+    @PutMapping("/{id}")
+    public void update (@PathVariable("id") Integer id, @RequestBody EventDto eventDto){
+        Event event = mapper.toDomain(eventDto);
+        eventService.editEvent(mapper.toEntity(event));
     }
 
     @DeleteMapping("/{id}")

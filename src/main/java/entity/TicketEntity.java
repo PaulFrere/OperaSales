@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "opera")
+@Table(name = "tickets")
 @Proxy(lazy=false)
 public class TicketEntity {
 
@@ -22,10 +22,6 @@ public class TicketEntity {
 
     @Column(name = "price")
     private int price;
-
-    @JoinColumn(name = "event_id")
-    @ManyToOne
-    private EventEntity event;
 
     public void setId(Integer id){
         this.id = id;

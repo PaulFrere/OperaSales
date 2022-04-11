@@ -10,5 +10,4 @@ import java.util.List;
 public class Event {
     private Integer id;
     private String name;
-    List<Ticket> ticket;
 }

@@ -10,7 +10,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Service;
 import repository.TicketRepo;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +20,15 @@ import java.util.stream.Collectors;
 public class TicketService implements ApplicationContextAware {
     Logger logger;
     ApplicationContext ctx;
-    TicketRepo repository;
+    TicketRepo repo;
 
-    public void byTicket(TicketEntity t){
-        repository.save(t);
+    public Integer byTicket(TicketEntity t){
+        TicketEntity save = repo.save(t);
+        return save.getId();
     }
 
     public void returnTicket(Integer id){
-        repository.deleteById(id);
+        repo.deleteById(id);
     }
 
 
@@ -38,14 +38,10 @@ public class TicketService implements ApplicationContextAware {
     }
 
     private static Ticket toDomain(TicketEntity ticket){
-        return new Ticket(ticket.getId(), ticket.getPrice(), ticket.getEvent().getName());
+        return new Ticket(ticket.getId(), ticket.getPrice(), ticket.getId());
     }
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException{
         this.ctx = applicationContext;
-    }
-
-    public List<Ticket> getETickets(Integer id){
-        return toDomain(repository.getTicketEntitiesByEvent_Id(id));
     }
 }

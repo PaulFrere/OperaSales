@@ -10,11 +10,14 @@ import lombok.NoArgsConstructor;
 @Data
 public class TicketDto {
     @JsonProperty
-    private Long id;
+    private Integer id;
 
     @JsonProperty
     private int price;
 
     @JsonProperty
     private String eventName;
+
+    @JsonProperty
+    private Integer eventId;
 }

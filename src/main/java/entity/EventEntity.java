@@ -12,13 +12,9 @@ import java.util.Collection;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "event")
+@Table(name = "events")
 @Proxy(lazy = false)
 public class EventEntity {
-    public EventEntity(Integer id, String name){
-        this.id = id;
-        this.name = name;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "events_seq")
@@ -34,18 +30,12 @@ public class EventEntity {
     }
     public String getName(){return name;}
 
-    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER)
-    private Collection<TicketEntity> tickets;
-
     @Column(name = "name")
     private String name;
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder(String.format("%s (%d)\n", name, id));
-        for (TicketEntity ticket : tickets){
-            sb.append(ticket).append("\n");
-        }
         return sb.toString();
     }
 }

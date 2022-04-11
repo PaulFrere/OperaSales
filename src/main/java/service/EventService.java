@@ -1,9 +1,5 @@
 package service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import net.bytebuddy.implementation.bytecode.Throw;
 import dto.Event;
 import entity.EventEntity;
 import org.springframework.beans.BeansException;
@@ -34,17 +30,17 @@ public class EventService implements ApplicationContextAware {
 
     private Logger logger;
     private ApplicationContext ctx;
-    private EventRepo repository;
+    private EventRepo repo;
     private TransactionTemplate txTemplate;
 
     @Autowired
-    public EventService(Logger logger, EventRepo repository,TransactionTemplate txTemplate){
+    public EventService(Logger logger, EventRepo repo,TransactionTemplate txTemplate){
         this.logger = logger;
-        this.repository = repository;
+        this.repo = repo;
         this.txTemplate = txTemplate;
     }
     public Integer addEvent(EventEntity e) {
-        EventEntity es =repository.save(e);
+        EventEntity es =repo.save(e);
         return es.getId();
     }
 
@@ -52,7 +48,7 @@ public class EventService implements ApplicationContextAware {
     public Event getEventById(Integer id)
     {
         try {
-            return toDomain(repository.getById(id));
+            return toDomain(repo.getById(id));
         }catch (Exception err){
             System.err.println(err.getMessage());
         }
@@ -67,24 +63,26 @@ public class EventService implements ApplicationContextAware {
     )
     public void editEvent(EventEntity e){
         try {
-            repository.save(e);
+            repo.save(e);
         }catch (Exception err){
             System.err.println(err.getMessage());
         }
     }
     public void deleteEvent(Integer id){
-        repository.deleteById(id);
+        repo.deleteById(id);
     }
+
     public List<Event> getList(){
-        return toDomain(repository.findAllOrderById());
+        return toDomain(repo.findAllOrderById());
     }
+
     private List<Event> toDomain(List<EventEntity> entities){
         return entities.stream()
                 .map(EventService::toDomain).collect(Collectors.toList());
     }
 
     private static Event toDomain(EventEntity entity){
-        return new Event(entity.getId(), entity.getName(), new ArrayList<>());
+        return new Event(entity.getId(), entity.getName());
     }
 
     @PostConstruct

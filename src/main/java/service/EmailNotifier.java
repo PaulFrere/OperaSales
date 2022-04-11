@@ -10,6 +10,6 @@ public class EmailNotifier implements ApplicationListener<BuyEvent> {
     @Override
     public void onApplicationEvent(BuyEvent event){
         Ticket ticket = (Ticket) event.getSource();
-        System.out.println("Buy ticket on " + ticket.getEventName());
+        System.out.println("Buy ticket on " + ticket.getEventId());
     }
 }
