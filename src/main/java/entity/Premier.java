@@ -1,73 +1,39 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.stream.Stream;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-public class Premier extends ArrayList<Premier> {
+import javax.persistence.*;
+import java.util.List;
 
-    private String name;
-    private String annotation;
-    private Integer ageCategory;
-    private Integer place;
-    private Integer tickets;
+@Getter
+@Setter
+@NoArgsConstructor
+@Entity
+@Table(name = "premier")
+public class Premier {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Premier(String name, String annotation, int ageCategory, int place, int tickets) {
-        this.name = name;
-        this.annotation = annotation;
-        this.ageCategory = ageCategory;
-        this.place = place;
-        this.tickets = tickets;
-    }
 
-    public String getName() {
-        return name;
-    }
+    @Column(name = "title")
+    private String title;
+    @Column(name = "description")
+    private String description;
+    @Column(name = "cathegory")
+    private  String cathegory;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    @Column(name = "places")
+    private  String places;
 
-    public String getAnnotation() {
-        return annotation;
-    }
 
-    public void setAnnotation(String annotation) {
-        this.annotation = annotation;
-    }
 
-    public Integer getAgeCategory() {
-        return ageCategory;
-    }
 
-    public void setAgeCategory(Integer ageCategory) {
-        this.ageCategory = ageCategory;
-    }
-
-    public Integer getPlace() {
-        return place;
-    }
-
-    public void setPlace(Integer place) {
-        this.place = place;
-    }
-
-    public  Integer getTickets() { return tickets; }
-
-    public void setTickets(Integer tickets) {
-        this.tickets = tickets;
-    }
 
     @Override
     public String toString() {
-        return name +
-                ", " + annotation +
-                ", " + ageCategory +
-                ", Free Seat: " + place;
+        return "Название: " + title + " Описание: " + description + " Категория: " + cathegory + " Количество мест: " + places;
     }
-
-    @Override
-    public Stream<Premier> stream() {
-        return super.stream();
-    }
-
 }

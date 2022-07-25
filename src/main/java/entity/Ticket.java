@@ -1,38 +1,29 @@
 package entity;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import javax.persistence.*;
+import java.util.List;
+import java.util.Objects;
+
+@Getter
+@Setter
+@Entity
+@Table(name = "tickets")
 public class Ticket {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
+    protected Integer price;
+    @Column
+    protected String place;
 
-    private Integer number;
-    private Integer price;
-    private String nameOfOpera;
-
-    public Ticket(String name, int place){
-        this.number = number;
+    public Ticket() {
         this.price = price;
-        this.nameOfOpera = nameOfOpera;
+        this.place = place;
     }
 
-    public Integer getNumber() {
-        return number;
-    }
-
-    public void setNumber(Integer number) {
-        this.number = number;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    public String getNameOfOpera() {
-        return nameOfOpera;
-    }
-
-    public void setNameOfOpera(String nameOfOpera) {
-        this.nameOfOpera = nameOfOpera;
-    }
 }
